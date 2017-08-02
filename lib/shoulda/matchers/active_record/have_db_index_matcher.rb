@@ -124,6 +124,10 @@ module Shoulda
         end
 
         def matched_index
+          if @options.key?(:unique)
+            matched = indexes.detect { |each| each.columns == @columns && each.unique }
+            return matched if matched
+          end
           indexes.detect { |each| each.columns == @columns }
         end
 
